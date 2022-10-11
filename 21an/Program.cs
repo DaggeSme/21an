@@ -1,12 +1,15 @@
-﻿int SpelarPoang = 0;
+﻿using System.Media;
+
+int SpelarPoang = 0;
 int DatorPoang = 0;
 int DragnaKort = 0;
 bool Spela = false;
-
-
 Random rnd = new Random();
-int slump = rnd.Next(1, 11);
 
+Console.WriteLine(Environment.CurrentDirectory);
+SoundPlayer typewriter = new SoundPlayer();
+typewriter.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards.wav";
+typewriter.Play();
 
 Console.WriteLine("Välkommen till 21an!");
 Console.WriteLine("Välj ett alternativ");
@@ -17,6 +20,7 @@ Console.WriteLine("4. Avsluta");
 switch (Console.ReadLine())
 {
     case "1":
+        Console.WriteLine();
         Console.WriteLine("Du valde att spela");
         Spela = true;
         break;
@@ -41,8 +45,8 @@ while (Spela == true)
     {
         //kod som körs första gången spelest spelas
         Console.WriteLine("Nu kommer två kort dras per spelare!");
-        SpelarPoang += rnd.Next(1, 11) + rnd.Next(1, 11);
-        DatorPoang += rnd.Next(1, 11) + rnd.Next(1, 11);
+        SpelarPoang += rnd.Next(1, 10) + rnd.Next(1, 10);
+        DatorPoang += rnd.Next(1, 10) + rnd.Next(1, 10);
         Console.WriteLine("Din poäng: " + SpelarPoang);
         Console.WriteLine("Datorns poäng: " + DatorPoang);
         DragnaKort++;
@@ -52,31 +56,30 @@ while (Spela == true)
         //kod som körs alla andra gånger efter första
         Console.WriteLine("Vill du dra ett till kort? (j/n)");
         String Dra = Console.ReadLine();
-        if (Dra == "j")
+        if (Dra == "j" && SpelarPoang < 21)
         {
-            SpelarPoang += rnd.Next(1, 11);
-            DatorPoang += rnd.Next(1, 11);
+            int Slump = rnd.Next(1, 10);
+            SpelarPoang += Slump;
+            Console.WriteLine("Ditt nya kort är värt " + Slump + " poäng");
             Console.WriteLine("Din poäng: " + SpelarPoang);
-            if (SpelarPoang > 21)
-            {
-                break;
-            }
-            if (DatorPoang > 21) 
-            {
-                break;
-            }
             Console.WriteLine("Datorns poäng: " + DatorPoang);
         }
         else if (Dra == "n")
         {
             while (DatorPoang < SpelarPoang)
             {
-                DatorPoang += rnd.Next(1, 11);
-                Console.WriteLine("Datorn drog ett kort och harn nu: " + DatorPoang + " poäng");
+                DatorPoang += rnd.Next(1, 10);
+                Console.WriteLine("Datorn drog ett kort och har nu: " + DatorPoang + " poäng");
             }
+            Spela = false;
         }
     }
-    if (DatorPoang > 21)
+    if (SpelarPoang > 21 || DatorPoang == 21)
+    {
+        Console.WriteLine("Du förlorade!");
+        Spela = false;
+    }
+    if (DatorPoang > 21 || SpelarPoang == 21)
     {
         Console.WriteLine("Du vann!");
         Spela = false;
