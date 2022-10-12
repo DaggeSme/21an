@@ -9,7 +9,12 @@ Random rnd = new Random();
 Console.WriteLine(Environment.CurrentDirectory);
 SoundPlayer typewriter = new SoundPlayer();
 typewriter.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards.wav";
-typewriter.Play();
+while (true)
+{
+    typewriter.Play();
+    Thread.Sleep(400);
+}
+
 
 Console.WriteLine("Välkommen till 21an!");
 Console.WriteLine("Välj ett alternativ");
