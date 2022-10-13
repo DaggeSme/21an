@@ -3,22 +3,28 @@
 
 SoundPlayer Drawing_Cards_4 = new SoundPlayer();
 Drawing_Cards_4.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards-4.wav";
+SoundPlayer Drawing_Cards = new SoundPlayer();
+Drawing_Cards.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards.wav";
+int Svarighet = 2;
 
 
-
-Console.WriteLine("Välkommen till 21an!");
 while (true) {
     int SpelarPoang = 0;
     int DatorPoang = 0;
     int DragnaKort = 0;
+    int SpelarTur = 1;
+    int DatorTur = 1;
+    
     bool Spela = false;
     Random rnd = new Random();
     Console.Clear();
+    Console.WriteLine("Välkommen till 21an!");
     Console.WriteLine("Välj ett alternativ");
     Console.WriteLine("1. Spela");
-    Console.WriteLine("2. Visa senaste vinnaren");
-    Console.WriteLine("3. Spelets regler");
-    Console.WriteLine("4. Avsluta");
+    Console.WriteLine("2. Svårighets grad");
+    Console.WriteLine("3. Visa senaste vinnaren");
+    Console.WriteLine("4. Spelets regler");
+    Console.WriteLine("5. Avsluta");
     switch (Console.ReadLine())
     {
         case "1":
@@ -27,13 +33,21 @@ while (true) {
             Spela = true;
             break;
         case "2":
-            Console.WriteLine("Du valde att visa senaste vinnaren");
+            Console.WriteLine("Välj mellan svårighets graderna: ");
+            Console.WriteLine("1. Lätt");
+            Console.WriteLine("2. Medel");
+            Console.WriteLine("3. Svår");
+            
+            Svarighet = Int32.Parse(Console.ReadLine());
             break;
         case "3":
+            Console.WriteLine("Du valde att visa senaste vinnaren");
+            break;
+        case "4":
             Console.WriteLine("Du valde att visa spelets regler");
             Console.WriteLine("I 21:an kommer du att spela mot datorn och försöka tvinga datorn att få över 21 poäng. Både du och datorn får poäng genom att dra kort, varje kort är värt 1 – 10 poäng. När spelet börjar dras två kort till både dig och datorn. Därefter får du dra hur många kort som du vill tills du är nöjd med din totalpoäng, du vill komma så nära 21 som möjligt utan att få mer än 21 poäng. När du inte vill dra fler kort så kommer datorn att dra kort tills den har mer eller lika många poäng som dig.\r\n\r\nDu vinner om datorn får mer än totalt 21 poäng när den håller på att dra kort. Datorn vinner om den har mer poäng än dig när spelet är slut så länge som datorn inte har mer än 21 poäng. Om det skulle bli lika i poäng så vinner datorn. Om du får mer än 21 poäng när du drar kort så har du förlorat.");
             break;
-        case "4":
+        case "5":
             Console.WriteLine("Du valde att avsluta");
             break;
         default:
@@ -46,6 +60,7 @@ while (true) {
         if (DragnaKort == 0)
         {
             //kod som körs första gången spelest spelas
+
             Console.WriteLine("Nu kommer två kort dras per spelare!");
             Drawing_Cards_4.Play();
             Thread.Sleep(250);
@@ -60,33 +75,85 @@ while (true) {
             //kod som körs alla andra gånger efter första
             Console.WriteLine("Vill du dra ett till kort? (j/n)");
             String Dra = Console.ReadLine();
-            if (Dra == "j" && SpelarPoang < 21)
+            while (Dra == "j" && SpelarPoang < 21)
             {
-                int Slump = rnd.Next(1, 10);
-                SpelarPoang += Slump;
-                Console.WriteLine("Ditt nya kort är värt " + Slump + " poäng");
-                Console.WriteLine("Din poäng: " + SpelarPoang);
-                Console.WriteLine("Datorns poäng: " + DatorPoang);
+                if (SpelarPoang >= 17 && Svarighet == 1)
+                {
+                    Drawing_Cards.Play();
+                    Thread.Sleep(125);
+                    int Slump = rnd.Next(1, 5);
+                    SpelarPoang += Slump;
+                    Console.WriteLine("Ditt nya kort är värt " + Slump + " poäng");
+                    Console.WriteLine("Din poäng: " + SpelarPoang);
+                    Console.WriteLine("Datorns poäng: " + DatorPoang);
+                }
+                else if (SpelarPoang >= 17 && Svarighet == 3)
+                {
+                    Drawing_Cards.Play();
+                    Thread.Sleep(125);
+                    int Slump = rnd.Next(3, 10);
+                    SpelarPoang += Slump;
+                    Console.WriteLine("Ditt nya kort är värt " + Slump + " poäng");
+                    Console.WriteLine("Din poäng: " + SpelarPoang);
+                    Console.WriteLine("Datorns poäng: " + DatorPoang);
+                }
+                else
+                {
+                    Drawing_Cards.Play();
+                    Thread.Sleep(125);
+                    int Slump = rnd.Next(1, 10);
+                    SpelarPoang += Slump;
+                    Console.WriteLine("Ditt nya kort är värt " + Slump + " poäng");
+                    Console.WriteLine("Din poäng: " + SpelarPoang);
+                    Console.WriteLine("Datorns poäng: " + DatorPoang);
+                }
+                if (SpelarPoang < 21)
+                {
+                    Console.WriteLine("Vill du dra ett till kort? (j/n)");
+                    Dra = Console.ReadLine();
+                }
+                
+
             }
-            else if (Dra == "n")
+            if (Dra == "n")
             {
-                while (DatorPoang < SpelarPoang)
+                while (DatorPoang < 19 || SpelarPoang < 19)
                 {
                     DatorPoang += rnd.Next(1, 10);
                     Console.WriteLine("Datorn drog ett kort och har nu: " + DatorPoang + " poäng");
                 }
-                Spela = false;
+                if (DatorPoang > SpelarPoang && DatorPoang < 21)
+                {
+                    Console.WriteLine("Du förlorade!");
+                    Spela = false;
+                    Thread.Sleep(5000);
+                    break;
+                }
+                else if (SpelarPoang > DatorPoang && SpelarPoang < 21)
+                {
+                    Console.WriteLine("Du vann!");
+                    Spela = false;
+                    Thread.Sleep(5000);
+                    break;
+                }
             }
         }
+        //Alla olicka vinnare och förlorare
         if (SpelarPoang > 21 || DatorPoang == 21)
         {
             Console.WriteLine("Du förlorade!");
             Spela = false;
             Thread.Sleep(5000);
         }
-        if (DatorPoang > 21 || SpelarPoang == 21)
+        else if (DatorPoang > 21 || SpelarPoang == 21)
         {
             Console.WriteLine("Du vann!");
+            Spela = false;
+            Thread.Sleep(5000);
+        }
+        else if (DatorPoang == SpelarPoang && DatorPoang == 21)
+        {
+            Console.WriteLine("Du förlorade!");
             Spela = false;
             Thread.Sleep(5000);
         }
