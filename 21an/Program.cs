@@ -1,14 +1,32 @@
 ﻿using System.Media;
 
 
+
+
+
+
+//TODO lägg till komentarer
+//Ändra svågighetsgrad mer
+//Flera variabler?
+//Skriva om reglerna
+//Riktigt blackjack på normal?
+//Snyggare kod eller enklare?
+//Snyggare utskiving och mera ljud
+
+
+
+
+
+
+
 SoundPlayer Drawing_Cards_4 = new SoundPlayer();
 Drawing_Cards_4.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards-4.wav";
 SoundPlayer Drawing_Cards = new SoundPlayer();
 Drawing_Cards.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards.wav";
 int Svarighet = 2;
+bool Avsluta = false;
 
-
-while (true) {
+while (Avsluta == false) {
     int SpelarPoang = 0;
     int DatorPoang = 0;
     int DragnaKort = 0;
@@ -35,7 +53,7 @@ while (true) {
         case "2":
             Console.WriteLine("Välj mellan svårighets graderna: ");
             Console.WriteLine("1. Lätt");
-            Console.WriteLine("2. Medel");
+            Console.WriteLine("2. Normal");
             Console.WriteLine("3. Svår");
             
             Svarighet = Int32.Parse(Console.ReadLine());
@@ -49,6 +67,7 @@ while (true) {
             break;
         case "5":
             Console.WriteLine("Du valde att avsluta");
+            Avsluta = true;
             break;
         default:
             Console.WriteLine("Du valde ett ogiltigt alternativ");
@@ -117,10 +136,10 @@ while (true) {
             }
             if (Dra == "n")
             {
-                while (DatorPoang < 19 || SpelarPoang < 19)
+                while (DatorPoang < 19 && DatorPoang < SpelarPoang)
                 {
-                    DatorPoang += rnd.Next(1, 10);
-                    Console.WriteLine("Datorn drog ett kort och har nu: " + DatorPoang + " poäng");
+                        DatorPoang += rnd.Next(1, 10);
+                        Console.WriteLine("Datorn drog ett kort och har nu: " + DatorPoang + " poäng");
                 }
                 if (DatorPoang > SpelarPoang && DatorPoang < 21)
                 {
@@ -132,6 +151,13 @@ while (true) {
                 else if (SpelarPoang > DatorPoang && SpelarPoang < 21)
                 {
                     Console.WriteLine("Du vann!");
+                    Spela = false;
+                    Thread.Sleep(5000);
+                    break;
+                }
+                else if (SpelarPoang == DatorPoang)
+                {
+                    Console.WriteLine("Du förlorade!");
                     Spela = false;
                     Thread.Sleep(5000);
                     break;
