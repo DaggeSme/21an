@@ -6,7 +6,7 @@
     <RootNamespace>_21an</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RuntimeIdentifiers>win11-x86</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
