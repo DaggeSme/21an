@@ -12,9 +12,9 @@
 //Riktigt blackjack på normal?
 //Snyggare kod eller enklare?
 //Snyggare utskiving och mera ljud
-
-
-
+//Riktiga deck resetas när det är x kort kvar avnvänd en list för att hålla koll på vilka kort som inte är använda
+//S'et är värt 11 om inte poängen blir över 21 då är det värt 1
+//C# forms?
 
 
 
