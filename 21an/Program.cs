@@ -2,9 +2,6 @@
 
 
 
-
-
-
 //TODO lägg till komentarer
 //Ändra svågighetsgrad mer
 //Flera variabler?
@@ -18,11 +15,14 @@
 
 
 
+//SoundPlayer Drawing_Cards = new SoundPlayer(_21an.Properties.Resources.Drawing);
+//SoundPlayer Drawing_Cards_4 = new SoundPlayer(_21an.Properties.Resources.Drawing4);
 
 SoundPlayer Drawing_Cards_4 = new SoundPlayer();
 Drawing_Cards_4.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards-4.wav";
 SoundPlayer Drawing_Cards = new SoundPlayer();
 Drawing_Cards.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards.wav";
+
 int Svarighet = 2;
 bool Avsluta = false;
 
