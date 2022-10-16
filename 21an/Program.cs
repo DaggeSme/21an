@@ -13,15 +13,8 @@
 //S'et är värt 11 om inte poängen blir över 21 då är det värt 1
 //C# forms?
 
-
-
-//SoundPlayer Drawing_Cards = new SoundPlayer(_21an.Properties.Resources.Drawing);
-//SoundPlayer Drawing_Cards_4 = new SoundPlayer(_21an.Properties.Resources.Drawing4);
-
-SoundPlayer Drawing_Cards_4 = new SoundPlayer();
-Drawing_Cards_4.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards-4.wav";
-SoundPlayer Drawing_Cards = new SoundPlayer();
-Drawing_Cards.SoundLocation = Environment.CurrentDirectory + "/Drawing-Cards.wav";
+SoundPlayer Drawing_Cards = new SoundPlayer(_21an.Properties.Resources.Drawing);
+SoundPlayer Drawing_Cards_4 = new SoundPlayer(_21an.Properties.Resources.Drawing4);
 
 int Svarighet = 2;
 bool Avsluta = false;
@@ -35,7 +28,7 @@ while (Avsluta == false) {
     
     bool Spela = false;
     Random rnd = new Random();
-    Console.Clear();
+    //Console.Clear();
     Console.WriteLine("Välkommen till 21an!");
     Console.WriteLine("Välj ett alternativ");
     Console.WriteLine("1. Spela");
