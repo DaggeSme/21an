@@ -1,4 +1,5 @@
-﻿using System.Media;
+﻿using System.ComponentModel.Design;
+using System.Media;
 
 
 
@@ -6,29 +7,57 @@
 //Ändra svågighetsgrad mer
 //Flera variabler?
 //Skriva om reglerna
-//Riktigt blackjack på normal?
 //Snyggare kod eller enklare?
 //Snyggare utskiving och mera ljud
-//Riktiga deck resetas när det är x kort kvar avnvänd en list för att hålla koll på vilka kort som inte är använda
-//S'et är värt 11 om inte poängen blir över 21 då är det värt 1
 //C# forms?
+//Fixa datorns dra efter spelarens dra med svårighetsgrader!
+
+//Half Done
+//Riktiga deck resetas när det är x kort kvar avnvänd en list för att hålla koll på vilka kort som inte är använda
+//Riktigt blackjack på normal?
+
+//DONE!
+//S'et är värt 11 om inte poängen blir över 21 då är det värt 1
+
+
+
+
 
 SoundPlayer Drawing_Cards = new SoundPlayer(_21an.Properties.Resources.Drawing);
 SoundPlayer Drawing_Cards_4 = new SoundPlayer(_21an.Properties.Resources.Drawing4);
 
+List<int> Cards = new List<int>();
+for (int i = 1; i <= 40; i++)
+{
+    Cards.Add(2);
+    Cards.Add(3);
+    Cards.Add(4);
+    Cards.Add(5);
+    Cards.Add(6);
+    Cards.Add(7);
+    Cards.Add(8);
+    Cards.Add(9);
+    Cards.Add(10);
+    Cards.Add(10);
+    Cards.Add(10);
+    Cards.Add(10);
+    Cards.Add(11);
+}
+Random rng = new Random();
+var ShuffledCards = Cards.OrderBy(a => rng.Next()).ToList();
+
+
 int Svarighet = 2;
 bool Avsluta = false;
-
+String Vinnare = "ingen har vinnit än!";
 while (Avsluta == false) {
     int SpelarPoang = 0;
     int DatorPoang = 0;
     int DragnaKort = 0;
-    int SpelarTur = 1;
-    int DatorTur = 1;
-    
+    int rand = 0;
     bool Spela = false;
     Random rnd = new Random();
-    //Console.Clear();
+    Console.Clear();
     Console.WriteLine("Välkommen till 21an!");
     Console.WriteLine("Välj ett alternativ");
     Console.WriteLine("1. Spela");
@@ -36,6 +65,18 @@ while (Avsluta == false) {
     Console.WriteLine("3. Visa senaste vinnaren");
     Console.WriteLine("4. Spelets regler");
     Console.WriteLine("5. Avsluta");
+    if (Svarighet == 1)
+    {
+        Console.WriteLine("Svårighetsgrad: Lätt");
+    }
+    else if (Svarighet == 2)
+    {
+        Console.WriteLine("Svårighetsgrad: Normal");
+    }
+    else if (Svarighet == 3)
+    {
+        Console.WriteLine("Svårighetsgrad: Svår");
+    }
     switch (Console.ReadLine())
     {
         case "1":
@@ -52,7 +93,8 @@ while (Avsluta == false) {
             Svarighet = Int32.Parse(Console.ReadLine());
             break;
         case "3":
-            Console.WriteLine("Du valde att visa senaste vinnaren");
+            Console.WriteLine("Den senaste vinnaren är: " + Vinnare);
+            Console.ReadLine();
             break;
         case "4":
             Console.WriteLine("Du valde att visa spelets regler");
@@ -72,15 +114,51 @@ while (Avsluta == false) {
         if (DragnaKort == 0)
         {
             //kod som körs första gången spelest spelas
+            if (Svarighet == 2)
+            {
+                Console.WriteLine("Nu kommer två kort dras per spelare!");
+                Drawing_Cards_4.Play();
+                Thread.Sleep(250);
+                for(int i = 1; i < 2; i++)
+                {
+                    rand = ShuffledCards[rnd.Next(0, ShuffledCards.Count())];
+                    ShuffledCards.Remove(rand);
+                    if (rand == 11 && (SpelarPoang += rand) < 21)
+                    {
+                        SpelarPoang += 1;
+                    }
+                    else
+                    {
+                        SpelarPoang += rand;
+                    }
 
-            Console.WriteLine("Nu kommer två kort dras per spelare!");
-            Drawing_Cards_4.Play();
-            Thread.Sleep(250);
-            SpelarPoang += rnd.Next(1, 10) + rnd.Next(1, 10);
-            DatorPoang += rnd.Next(1, 10) + rnd.Next(1, 10);
-            Console.WriteLine("Din poäng: " + SpelarPoang);
-            Console.WriteLine("Datorns poäng: " + DatorPoang);
-            DragnaKort++;
+                    rand = ShuffledCards[rnd.Next(0, ShuffledCards.Count())];
+                    ShuffledCards.Remove(rand);
+                    if (rand == 11 && (DatorPoang += rand) < 21)
+                    {
+                        DatorPoang += 1;
+                    }
+                    else
+                    {
+                        DatorPoang += rand;
+                    }
+                }
+                Console.WriteLine("Din poäng: " + SpelarPoang);
+                Console.WriteLine("Datorns poäng: " + DatorPoang);
+                DragnaKort++;
+            }
+            else
+            {
+                Console.WriteLine("Nu kommer två kort dras per spelare!");
+                Drawing_Cards_4.Play();
+                Thread.Sleep(250);
+                SpelarPoang += rnd.Next(1, 10) + rnd.Next(1, 10);
+                DatorPoang += rnd.Next(1, 10) + rnd.Next(1, 10);
+                Console.WriteLine("Din poäng: " + SpelarPoang);
+                Console.WriteLine("Datorns poäng: " + DatorPoang);
+                DragnaKort++;
+            }
+
         }
         else
         {
@@ -109,13 +187,21 @@ while (Avsluta == false) {
                     Console.WriteLine("Din poäng: " + SpelarPoang);
                     Console.WriteLine("Datorns poäng: " + DatorPoang);
                 }
-                else
+                else if (Svarighet == 2)
                 {
                     Drawing_Cards.Play();
                     Thread.Sleep(125);
-                    int Slump = rnd.Next(1, 10);
-                    SpelarPoang += Slump;
-                    Console.WriteLine("Ditt nya kort är värt " + Slump + " poäng");
+                    rand = ShuffledCards[rnd.Next(0, ShuffledCards.Count())];
+                    ShuffledCards.Remove(rand);
+                    if (rand == 11 && (SpelarPoang += rand) < 21)
+                    {
+                        SpelarPoang += 1;
+                    }
+                    else
+                    {
+                        SpelarPoang += rand;
+                    }
+                    Console.WriteLine("Ditt nya kort är värt " + rand + " poäng");
                     Console.WriteLine("Din poäng: " + SpelarPoang);
                     Console.WriteLine("Datorns poäng: " + DatorPoang);
                 }
@@ -131,28 +217,38 @@ while (Avsluta == false) {
             {
                 while (DatorPoang < 19 && DatorPoang < SpelarPoang)
                 {
-                        DatorPoang += rnd.Next(1, 10);
-                        Console.WriteLine("Datorn drog ett kort och har nu: " + DatorPoang + " poäng");
+                    rand = ShuffledCards[rnd.Next(0, ShuffledCards.Count())];
+                    ShuffledCards.Remove(rand);
+                    if (rand == 11 && (DatorPoang += rand) < 21)
+                    {
+                        DatorPoang += 1;
+                    }
+                    else
+                    {
+                        DatorPoang += rand;
+                    }
+                    Console.WriteLine("Datorn drog ett kort och har nu: " + DatorPoang + " poäng");
                 }
                 if (DatorPoang > SpelarPoang && DatorPoang < 21)
                 {
                     Console.WriteLine("Du förlorade!");
                     Spela = false;
-                    Thread.Sleep(5000);
+                    Thread.Sleep(3000);
                     break;
                 }
                 else if (SpelarPoang > DatorPoang && SpelarPoang < 21)
                 {
                     Console.WriteLine("Du vann!");
                     Spela = false;
-                    Thread.Sleep(5000);
+                    Console.WriteLine("Skriv in ditt namn: ");
+                    Vinnare = Console.ReadLine();
                     break;
                 }
                 else if (SpelarPoang == DatorPoang)
                 {
                     Console.WriteLine("Du förlorade!");
                     Spela = false;
-                    Thread.Sleep(5000);
+                    Thread.Sleep(3000);
                     break;
                 }
             }
@@ -162,19 +258,20 @@ while (Avsluta == false) {
         {
             Console.WriteLine("Du förlorade!");
             Spela = false;
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
         }
         else if (DatorPoang > 21 || SpelarPoang == 21)
         {
             Console.WriteLine("Du vann!");
             Spela = false;
-            Thread.Sleep(5000);
+            Console.WriteLine("Skriv in ditt namn: ");
+            Vinnare = Console.ReadLine();
         }
         else if (DatorPoang == SpelarPoang && DatorPoang == 21)
         {
             Console.WriteLine("Du förlorade!");
             Spela = false;
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);
         }
     }
 }
