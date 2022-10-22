@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
+using System.Media;
+using System.Reflection.Emit;
 using System.Resources;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blackjack
 {
@@ -12,6 +15,8 @@ namespace Blackjack
         int PlayerDrawnCards = 1;
         List<Card> Deck = new List<Card>();
         Random rng = new Random();
+        SoundPlayer Drawing_Cards = new SoundPlayer(Blackjack.Properties.Resource1.Drawing);
+        SoundPlayer Drawing_Cards_4 = new SoundPlayer(Blackjack.Properties.Resource1.Drawingfour);
         public Form1()
         {
             InitializeComponent();
@@ -68,46 +73,58 @@ namespace Blackjack
 
         private void PlayerDraw_Click(object sender, EventArgs e)
         {
-            if (PlayerDrawnCards == 1)
+            Task.Run(() =>
             {
-                PlayerCard1.Visible = true;
-                PlayerCard2.Visible = false;
-                PlayerCard3.Visible = false;
-                PlayerCard4.Visible = false;
+                //Draw a random card from the deck to the player
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                PlayerCard1.Invoke(new Action(() => PlayerCard1.Visible = true));
+                PlayerCard2.Invoke(new Action(() => PlayerCard2.Visible = false));
+                PlayerCard3.Invoke(new Action(() => PlayerCard3.Visible = false));
+                PlayerCard4.Invoke(new Action(() => PlayerCard4.Visible = false));
                 Rand = rng.Next(0, rng.Next(0, Deck.Count));
                 Debug.WriteLine(Deck[Rand].Value);
-                PlayerCard1.Image = (Bitmap)Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name);
-                Deck.RemoveAt(Rand);
-                PlayerDrawnCards++;
-            }
-            else if (PlayerDrawnCards == 2)
-            {
-                PlayerCard2.Visible = true;
-                Rand = rng.Next(0, rng.Next(0, Deck.Count));
-                Debug.WriteLine(Deck[Rand].Value);
-                PlayerCard2.Image = (Bitmap)Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name);
-                Deck.RemoveAt(Rand);
-                PlayerDrawnCards++;
-            }
-            else if (PlayerDrawnCards == 3)
-            {
+                PlayerCard1.Invoke(new Action(() => PlayerCard1.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
 
-                PlayerCard3.Visible = true;
+                //Draw a random card from the deck to the dealer
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                DealerCard1.Invoke(new Action(() => PlayerCard1.Visible = true));
+                DealerCard2.Invoke(new Action(() => PlayerCard2.Visible = false));
+                DealerCard3.Invoke(new Action(() => PlayerCard3.Visible = false));
+                DealerCard4.Invoke(new Action(() => PlayerCard4.Visible = false));
                 Rand = rng.Next(0, rng.Next(0, Deck.Count));
                 Debug.WriteLine(Deck[Rand].Value);
-                PlayerCard3.Image = (Bitmap)Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name);
-                Deck.RemoveAt(Rand);
-                PlayerDrawnCards++;
-            }
-            else if (PlayerDrawnCards == 4)
-            {
-                PlayerCard4.Visible = true;
+                DealerCard1.Invoke(new Action(() => DealerCard1.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
+
+                //Draw a random card from the deck to the player
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                PlayerCard1.Invoke(new Action(() => PlayerCard1.Visible = true));
+                PlayerCard2.Invoke(new Action(() => PlayerCard2.Visible = true));
+                PlayerCard3.Invoke(new Action(() => PlayerCard3.Visible = false));
+                PlayerCard4.Invoke(new Action(() => PlayerCard4.Visible = false));
                 Rand = rng.Next(0, rng.Next(0, Deck.Count));
                 Debug.WriteLine(Deck[Rand].Value);
-                PlayerCard4.Image = (Bitmap)Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name);
-                Deck.RemoveAt(Rand);
-                //PlayerDrawnCards++;
-            }
+                PlayerCard2.Invoke(new Action(() => PlayerCard2.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
+                
+                //Draw a random card from the deck to the dealer
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                DealerCard1.Invoke(new Action(() => PlayerCard1.Visible = true));
+                DealerCard2.Invoke(new Action(() => PlayerCard2.Visible = true));
+                DealerCard3.Invoke(new Action(() => PlayerCard3.Visible = false));
+                DealerCard4.Invoke(new Action(() => PlayerCard4.Visible = false));
+                Rand = rng.Next(0, rng.Next(0, Deck.Count));
+                Debug.WriteLine(Deck[Rand].Value);
+                DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
+            });
+            
+        }
+
+        private void PlayerDraw_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
     public class Card
