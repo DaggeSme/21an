@@ -38,6 +38,8 @@
             this.DealerCard2 = new System.Windows.Forms.PictureBox();
             this.DealerCard1 = new System.Windows.Forms.PictureBox();
             this.PlayerDraw = new System.Windows.Forms.Button();
+            this.Message = new System.Windows.Forms.TextBox();
+            this.PlayerStand = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard3)).BeginInit();
@@ -88,16 +90,22 @@
             // 
             this.Start.AutoSize = true;
             this.Start.BackColor = System.Drawing.Color.Transparent;
+            this.Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Start.CausesValidation = false;
             this.Start.FlatAppearance.BorderSize = 0;
-            this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Start.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Start.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Start.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Start.Location = new System.Drawing.Point(178, 137);
+            this.Start.ForeColor = System.Drawing.Color.Transparent;
+            this.Start.Location = new System.Drawing.Point(218, 181);
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(321, 216);
+            this.Start.Size = new System.Drawing.Size(147, 49);
             this.Start.TabIndex = 4;
+            this.Start.TabStop = false;
             this.Start.Text = "Spela!";
             this.Start.UseVisualStyleBackColor = false;
-            this.Start.Click += new System.EventHandler(this.PlayerDraw_Click);
+            this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
             // DealerCard4
             // 
@@ -123,6 +131,7 @@
             this.DealerCard2.Location = new System.Drawing.Point(775, 101);
             this.DealerCard2.Name = "DealerCard2";
             this.DealerCard2.Size = new System.Drawing.Size(150, 218);
+            this.DealerCard2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DealerCard2.TabIndex = 6;
             this.DealerCard2.TabStop = false;
             // 
@@ -137,14 +146,53 @@
             // 
             // PlayerDraw
             // 
+            this.PlayerDraw.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerDraw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.PlayerDraw.FlatAppearance.BorderSize = 0;
+            this.PlayerDraw.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.PlayerDraw.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.PlayerDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PlayerDraw.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PlayerDraw.Location = new System.Drawing.Point(351, 629);
+            this.PlayerDraw.ForeColor = System.Drawing.Color.Transparent;
+            this.PlayerDraw.Location = new System.Drawing.Point(281, 664);
             this.PlayerDraw.Name = "PlayerDraw";
-            this.PlayerDraw.Size = new System.Drawing.Size(159, 112);
+            this.PlayerDraw.Size = new System.Drawing.Size(95, 47);
             this.PlayerDraw.TabIndex = 9;
             this.PlayerDraw.Text = "Dra";
-            this.PlayerDraw.UseVisualStyleBackColor = true;
+            this.PlayerDraw.UseVisualStyleBackColor = false;
+            this.PlayerDraw.Visible = false;
             this.PlayerDraw.Click += new System.EventHandler(this.PlayerDraw_Click_1);
+            // 
+            // Message
+            // 
+            this.Message.Location = new System.Drawing.Point(748, 37);
+            this.Message.Name = "Message";
+            this.Message.ReadOnly = true;
+            this.Message.Size = new System.Drawing.Size(264, 23);
+            this.Message.TabIndex = 10;
+            this.Message.Visible = false;
+            // 
+            // PlayerStand
+            // 
+            this.PlayerStand.AutoSize = true;
+            this.PlayerStand.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerStand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.PlayerStand.CausesValidation = false;
+            this.PlayerStand.FlatAppearance.BorderSize = 0;
+            this.PlayerStand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.PlayerStand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.PlayerStand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlayerStand.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.PlayerStand.ForeColor = System.Drawing.Color.Transparent;
+            this.PlayerStand.Location = new System.Drawing.Point(412, 662);
+            this.PlayerStand.Name = "PlayerStand";
+            this.PlayerStand.Size = new System.Drawing.Size(147, 49);
+            this.PlayerStand.TabIndex = 11;
+            this.PlayerStand.TabStop = false;
+            this.PlayerStand.Text = "Stanna";
+            this.PlayerStand.UseVisualStyleBackColor = false;
+            this.PlayerStand.Visible = false;
+            this.PlayerStand.Click += new System.EventHandler(this.PlayerStand_Click);
             // 
             // Form1
             // 
@@ -152,6 +200,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Blackjack.Properties.Resource1.background;
             this.ClientSize = new System.Drawing.Size(1684, 861);
+            this.Controls.Add(this.PlayerStand);
+            this.Controls.Add(this.Message);
             this.Controls.Add(this.PlayerDraw);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.PlayerCard4);
@@ -189,5 +239,7 @@
         private PictureBox DealerCard2;
         private PictureBox DealerCard1;
         private Button PlayerDraw;
+        private TextBox Message;
+        private Button PlayerStand;
     }
 }
