@@ -38,8 +38,16 @@
             this.DealerCard2 = new System.Windows.Forms.PictureBox();
             this.DealerCard1 = new System.Windows.Forms.PictureBox();
             this.PlayerDraw = new System.Windows.Forms.Button();
-            this.Message = new System.Windows.Forms.TextBox();
             this.PlayerStand = new System.Windows.Forms.Button();
+            this.Message = new System.Windows.Forms.Label();
+            this.PlayerCard7 = new System.Windows.Forms.PictureBox();
+            this.PlayerCard6 = new System.Windows.Forms.PictureBox();
+            this.PlayerCard5 = new System.Windows.Forms.PictureBox();
+            this.DealerCard7 = new System.Windows.Forms.PictureBox();
+            this.DealerCard6 = new System.Windows.Forms.PictureBox();
+            this.DealerCard5 = new System.Windows.Forms.PictureBox();
+            this.NameInput = new System.Windows.Forms.TextBox();
+            this.LatestWinnerShow = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard3)).BeginInit();
@@ -48,6 +56,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.DealerCard3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DealerCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DealerCard1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCard7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCard6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCard5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerCard7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerCard6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerCard5)).BeginInit();
             this.SuspendLayout();
             // 
             // PlayerCard1
@@ -98,7 +112,7 @@
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Start.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Start.ForeColor = System.Drawing.Color.Transparent;
-            this.Start.Location = new System.Drawing.Point(218, 181);
+            this.Start.Location = new System.Drawing.Point(217, 101);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(147, 49);
             this.Start.TabIndex = 4;
@@ -163,15 +177,6 @@
             this.PlayerDraw.Visible = false;
             this.PlayerDraw.Click += new System.EventHandler(this.PlayerDraw_Click_1);
             // 
-            // Message
-            // 
-            this.Message.Location = new System.Drawing.Point(748, 37);
-            this.Message.Name = "Message";
-            this.Message.ReadOnly = true;
-            this.Message.Size = new System.Drawing.Size(264, 23);
-            this.Message.TabIndex = 10;
-            this.Message.Visible = false;
-            // 
             // PlayerStand
             // 
             this.PlayerStand.AutoSize = true;
@@ -194,14 +199,118 @@
             this.PlayerStand.Visible = false;
             this.PlayerStand.Click += new System.EventHandler(this.PlayerStand_Click);
             // 
+            // Message
+            // 
+            this.Message.AutoSize = true;
+            this.Message.BackColor = System.Drawing.Color.Transparent;
+            this.Message.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Message.ForeColor = System.Drawing.Color.Transparent;
+            this.Message.Location = new System.Drawing.Point(802, 381);
+            this.Message.Name = "Message";
+            this.Message.Size = new System.Drawing.Size(0, 39);
+            this.Message.TabIndex = 12;
+            this.Message.Visible = false;
+            this.Message.Click += new System.EventHandler(this.Message_Click);
+            // 
+            // PlayerCard7
+            // 
+            this.PlayerCard7.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerCard7.Location = new System.Drawing.Point(1150, 500);
+            this.PlayerCard7.Name = "PlayerCard7";
+            this.PlayerCard7.Size = new System.Drawing.Size(150, 218);
+            this.PlayerCard7.TabIndex = 15;
+            this.PlayerCard7.TabStop = false;
+            this.PlayerCard7.Visible = false;
+            // 
+            // PlayerCard6
+            // 
+            this.PlayerCard6.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerCard6.Location = new System.Drawing.Point(1075, 500);
+            this.PlayerCard6.Name = "PlayerCard6";
+            this.PlayerCard6.Size = new System.Drawing.Size(150, 218);
+            this.PlayerCard6.TabIndex = 14;
+            this.PlayerCard6.TabStop = false;
+            this.PlayerCard6.Visible = false;
+            // 
+            // PlayerCard5
+            // 
+            this.PlayerCard5.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerCard5.Location = new System.Drawing.Point(1000, 500);
+            this.PlayerCard5.Name = "PlayerCard5";
+            this.PlayerCard5.Size = new System.Drawing.Size(150, 218);
+            this.PlayerCard5.TabIndex = 13;
+            this.PlayerCard5.TabStop = false;
+            this.PlayerCard5.Visible = false;
+            // 
+            // DealerCard7
+            // 
+            this.DealerCard7.BackColor = System.Drawing.Color.Transparent;
+            this.DealerCard7.Location = new System.Drawing.Point(1150, 101);
+            this.DealerCard7.Name = "DealerCard7";
+            this.DealerCard7.Size = new System.Drawing.Size(150, 218);
+            this.DealerCard7.TabIndex = 18;
+            this.DealerCard7.TabStop = false;
+            this.DealerCard7.Visible = false;
+            // 
+            // DealerCard6
+            // 
+            this.DealerCard6.BackColor = System.Drawing.Color.Transparent;
+            this.DealerCard6.Location = new System.Drawing.Point(1075, 101);
+            this.DealerCard6.Name = "DealerCard6";
+            this.DealerCard6.Size = new System.Drawing.Size(150, 218);
+            this.DealerCard6.TabIndex = 17;
+            this.DealerCard6.TabStop = false;
+            this.DealerCard6.Visible = false;
+            // 
+            // DealerCard5
+            // 
+            this.DealerCard5.BackColor = System.Drawing.Color.Transparent;
+            this.DealerCard5.Location = new System.Drawing.Point(1000, 101);
+            this.DealerCard5.Name = "DealerCard5";
+            this.DealerCard5.Size = new System.Drawing.Size(150, 218);
+            this.DealerCard5.TabIndex = 16;
+            this.DealerCard5.TabStop = false;
+            this.DealerCard5.Visible = false;
+            // 
+            // NameInput
+            // 
+            this.NameInput.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.NameInput.Location = new System.Drawing.Point(217, 418);
+            this.NameInput.Name = "NameInput";
+            this.NameInput.Size = new System.Drawing.Size(397, 46);
+            this.NameInput.TabIndex = 19;
+            this.NameInput.Text = "Skriv in ditt namn!";
+            this.NameInput.Visible = false;
+            this.NameInput.TextChanged += new System.EventHandler(this.Name_TextChanged);
+            // 
+            // LatestWinnerShow
+            // 
+            this.LatestWinnerShow.AutoSize = true;
+            this.LatestWinnerShow.BackColor = System.Drawing.Color.Transparent;
+            this.LatestWinnerShow.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.LatestWinnerShow.ForeColor = System.Drawing.Color.Transparent;
+            this.LatestWinnerShow.Location = new System.Drawing.Point(217, 26);
+            this.LatestWinnerShow.Name = "LatestWinnerShow";
+            this.LatestWinnerShow.Size = new System.Drawing.Size(417, 39);
+            this.LatestWinnerShow.TabIndex = 20;
+            this.LatestWinnerShow.Text = "Ingen har vunnit än!";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Blackjack.Properties.Resource1.background;
             this.ClientSize = new System.Drawing.Size(1684, 861);
-            this.Controls.Add(this.PlayerStand);
+            this.Controls.Add(this.NameInput);
+            this.Controls.Add(this.LatestWinnerShow);
+            this.Controls.Add(this.DealerCard7);
+            this.Controls.Add(this.DealerCard6);
+            this.Controls.Add(this.DealerCard5);
+            this.Controls.Add(this.PlayerCard7);
+            this.Controls.Add(this.PlayerCard6);
+            this.Controls.Add(this.PlayerCard5);
             this.Controls.Add(this.Message);
+            this.Controls.Add(this.PlayerStand);
             this.Controls.Add(this.PlayerDraw);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.PlayerCard4);
@@ -222,6 +331,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.DealerCard3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DealerCard2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DealerCard1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCard7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCard6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCard5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerCard7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerCard6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DealerCard5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,7 +354,15 @@
         private PictureBox DealerCard2;
         private PictureBox DealerCard1;
         private Button PlayerDraw;
-        private TextBox Message;
         private Button PlayerStand;
+        private Label Message;
+        private PictureBox PlayerCard7;
+        private PictureBox PlayerCard6;
+        private PictureBox PlayerCard5;
+        private PictureBox DealerCard7;
+        private PictureBox DealerCard6;
+        private PictureBox DealerCard5;
+        private TextBox NameInput;
+        private Label LatestWinnerShow;
     }
 }
