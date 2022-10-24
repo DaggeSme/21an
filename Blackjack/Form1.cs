@@ -18,7 +18,6 @@ namespace Blackjack
         int PlayerValue = 0;
         int DealerValue = 0;
         String DealerCard2Hidden = "";
-        string LatestWinner = "Ingen har vunnit än!";
         List<Card> Deck = new List<Card>();
         Random rng = new Random();
         SoundPlayer Drawing_Cards = new SoundPlayer(Blackjack.Properties.Resource1.Drawing);
@@ -33,28 +32,28 @@ namespace Blackjack
             {
                 switch (entry.Key.ToString())
                 {
-                    case string a when a.Contains("2"):
+                    case string a when a.Contains('2'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 2 });
                         break;
-                    case string a when a.Contains("3"):
+                    case string a when a.Contains('3'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 3 });
                         break;
-                    case string a when a.Contains("4"):
+                    case string a when a.Contains('4'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 4 });
                         break;
-                    case string a when a.Contains("5"):
+                    case string a when a.Contains('5'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 5 });
                         break;
-                    case string a when a.Contains("6"):
+                    case string a when a.Contains('6'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 6 });
                         break;
-                    case string a when a.Contains("7"):
+                    case string a when a.Contains('7'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 7 });
                         break;
-                    case string a when a.Contains("8"):
+                    case string a when a.Contains('8'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 8 });
                         break;
-                    case string a when a.Contains("9"):
+                    case string a when a.Contains('9'):
                         Deck.Add(new Card() { Name = entry.Key.ToString(), Value = 9 });
                         break;
                     case string a when a.Contains("10"):
@@ -94,7 +93,7 @@ namespace Blackjack
                 PlayerCard3.Invoke(new Action(() => PlayerCard3.Visible = false));
                 PlayerCard4.Invoke(new Action(() => PlayerCard4.Visible = false));
                 PlayerCard5.Invoke(new Action(() => PlayerCard5.Visible = false));
-                PlayerCard6.Invoke(new Action(() => PlayerCard6.Visible = false));s
+                PlayerCard6.Invoke(new Action(() => PlayerCard6.Visible = false));
                 PlayerCard7.Invoke(new Action(() => PlayerCard7.Visible = false));
                 DealerCard1.Invoke(new Action(() => DealerCard1.Visible = false));
                 DealerCard2.Invoke(new Action(() => DealerCard2.Visible = false));
@@ -448,7 +447,7 @@ namespace Blackjack
 
         private void Name_TextChanged(object sender, EventArgs e)
         {
-            LatestWinnerShow.Text = NameInput.Text + " är den senaste vinnare!";
+            LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!";
         }
     }
     public class Card
