@@ -15,9 +15,9 @@ namespace Blackjack
         int Rand = 0;
         int PlayerDrawnCards = 3;
         int DealerDrawnCards = 3;
-        int PlayerValue = 0;
+        int PlayerValue = 15;
         int DealerValue = 0;
-        String DealerCard2Hidden = "";
+        string DealerCard2Hidden = "";
         List<Card> Deck = new List<Card>();
         Random rng = new Random();
         SoundPlayer Drawing_Cards = new SoundPlayer(Blackjack.Properties.Resource1.Drawing);
@@ -28,7 +28,6 @@ namespace Blackjack
         public void Shuffle()
         {
             //Get the card deck from the resource file and add it to the deck list with a value
-            
             ResourceSet resourceSet =
                 Properties.Resource1.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
             foreach (DictionaryEntry entry in resourceSet)
@@ -96,20 +95,38 @@ namespace Blackjack
             DealerCard7.Invoke(new Action(() => DealerCard7.Visible = false));
             NameInput.Invoke(new Action(() => NameInput.Visible = false));
         }
-        public void Draw(PictureBox Card, int playerDealer)
+        public void PlayerDrawCard(PictureBox Card)
         {
             //Draw a random card from the deck to the player
             Drawing_Cards.Play();
             Thread.Sleep(600);
             Card.Invoke(new Action(() => Card.Visible = true));
             Rand = rng.Next(0, rng.Next(0, Deck.Count));
-            if (Deck[Rand].Value == 11 && playerDealer > 10)
+            if (Deck[Rand].Value == 11 && PlayerValue > 10)
             {
-                playerDealer += 1;
+                PlayerValue += 1;
             }
             else
             {
-                playerDealer += Deck[Rand].Value;
+                PlayerValue += Deck[Rand].Value;
+            }
+            Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
+            Deck.Remove(Deck[Rand]);
+        }
+        public void DealerDrawCard(PictureBox Card)
+        {
+            //Draw a random card from the deck to the player
+            Drawing_Cards.Play();
+            Thread.Sleep(600);
+            Card.Invoke(new Action(() => Card.Visible = true));
+            Rand = rng.Next(0, rng.Next(0, Deck.Count));
+            if (Deck[Rand].Value == 11 && DealerValue > 10)
+            {
+                DealerValue += 1;
+            }
+            else
+            {
+                DealerValue += Deck[Rand].Value;
             }
             Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
             Deck.Remove(Deck[Rand]);
@@ -127,22 +144,18 @@ namespace Blackjack
             //Draw 2 cards for the player and two for the dealer and show them
             Task.Run(() =>
             {
+                //Reset all needed values and clear the screen
                 PlayerValue = 0;
                 DealerValue = 0;
                 PlayerDrawnCards = 3;
                 DealerDrawnCards = 3;
                 Clear();
-
                 //Draw a random card from the deck to the player
-                Draw(PlayerCard1, PlayerValue);
-
-
+                PlayerDrawCard(PlayerCard1);
                 //Draw a random card from the deck to the dealer
-                Draw(DealerCard1, DealerValue);
-
+                DealerDrawCard(DealerCard1);
                 //Draw a random card from the deck to the player
-                Draw(PlayerCard2, PlayerValue);
-
+                PlayerDrawCard(PlayerCard2);
                 //Draw a random card from the deck to the dealer but not showing it
                 Drawing_Cards.Play();
                 Thread.Sleep(600);
@@ -164,20 +177,18 @@ namespace Blackjack
                 //Check if the player has blackjack
                 if (PlayerValue == 21)
                 {
+                    PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = false));
+                    PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du vann!"));
                     Start.Invoke(new Action(() => Start.Visible = true));
+                    NameInput.Invoke(new Action(() => NameInput.Visible = true));
                 }
+                //Check to see if the player can continue is so show buttons
                 if (PlayerValue < 21)
                 {
                     PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = true));
                     PlayerStand.Invoke(new Action(() => PlayerStand.Visible = true));
-                }
-                else
-                {
-                    PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = false));
-                    PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
-
                 }
             });
         }
@@ -189,40 +200,35 @@ namespace Blackjack
                 {
                     case 3:
                         //Draw a random card from the deck to the player
-                        Draw(PlayerCard3, PlayerValue);
+                        PlayerDrawCard(PlayerCard3);
                         PlayerDrawnCards++;
                         break;
                     case 4:
                         //Draw a random card from the deck to the player
-                        Draw(PlayerCard4, PlayerValue);
+                        PlayerDrawCard(PlayerCard4);
                         PlayerDrawnCards++;
                         break;
                     case 5:
                         //Draw a random card from the deck to the player
-                        Draw(PlayerCard5, PlayerValue);
+                        PlayerDrawCard(PlayerCard5);
                         PlayerDrawnCards++;
                         break;
                     case 6:
                         //Draw a random card from the deck to the player
-                        Draw(PlayerCard6, PlayerValue);
+                        PlayerDrawCard(PlayerCard6);
                         PlayerDrawnCards++;
                         break;
                     case 7:
                         //Draw a random card from the deck to the player
-                        Draw(PlayerCard7, PlayerValue);
+                        PlayerDrawCard(PlayerCard7);
                         PlayerDrawnCards++;
                         break;
                 }
+                //Check to see if the player can continue is so show buttons
                 if (PlayerValue < 21)
                 {
                     PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = true));
                     PlayerStand.Invoke(new Action(() => PlayerStand.Visible = true));
-                }
-                else
-                {
-                    PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = false));
-                    PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
-
                 }
                 //find all winners and losers and write it out
                 if (PlayerValue > 21)
@@ -232,6 +238,7 @@ namespace Blackjack
                     DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject(DealerCard2Hidden) as Image));
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du förlorade!"));
+                    LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = "Datorn var den senaste vinnare!"));
                     Start.Invoke(new Action(() => Start.Visible = true));
                 }
                 else if (DealerValue > 21 || PlayerValue == 21)
@@ -261,27 +268,27 @@ namespace Blackjack
                     {
                         case 3:
                             //Draw a random card from the deck to the dealer
-                            Draw(DealerCard3, DealerValue);
+                            DealerDrawCard(DealerCard3);
                             DealerDrawnCards++;
                             break;
                         case 4:
                             //Draw a random card from the deck to the dealer
-                            Draw(DealerCard4, DealerValue);
+                            DealerDrawCard(DealerCard4);
                             DealerDrawnCards++;
                             break;
                         case 5:
                             //Draw a random card from the deck to the dealer
-                            Draw(DealerCard5, DealerValue);
+                            DealerDrawCard(DealerCard5);
                             DealerDrawnCards++;
                             break;
                         case 6:
                             //Draw a random card from the deck to the dealer
-                            Draw(DealerCard6, DealerValue);
+                            DealerDrawCard(DealerCard6);
                             DealerDrawnCards++;
                             break;
                         case 7:
                             //Draw a random card from the deck to the dealer
-                            Draw(DealerCard7, DealerValue);
+                            DealerDrawCard(DealerCard7);
                             DealerDrawnCards++;
                             break;
                     }
@@ -293,6 +300,7 @@ namespace Blackjack
                     PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du förlorade!"));
+                    LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = "Datorn var den senaste vinnare!"));
                     Start.Invoke(new Action(() => Start.Visible = true));
                 }
                 else if (DealerValue > 21 || PlayerValue == 21 || (DealerValue < PlayerValue && PlayerValue < 21))
@@ -307,16 +315,6 @@ namespace Blackjack
             });
         }
 
-        private void Message_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Message_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Name_TextChanged(object sender, EventArgs e)
         {
             LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!";
@@ -327,5 +325,4 @@ namespace Blackjack
         public int Value { get; set; }
         public string Name { get; set; }
     }
-    
 }

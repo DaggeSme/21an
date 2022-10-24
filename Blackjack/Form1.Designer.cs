@@ -210,7 +210,6 @@
             this.Message.Size = new System.Drawing.Size(0, 39);
             this.Message.TabIndex = 12;
             this.Message.Visible = false;
-            this.Message.Click += new System.EventHandler(this.Message_Click);
             // 
             // PlayerCard7
             // 
@@ -301,10 +300,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Blackjack.Properties.Resource1.background;
             this.ClientSize = new System.Drawing.Size(1684, 861);
-            this.Controls.Add(this.NameInput);
-            this.Controls.Add(this.LatestWinnerShow);
             this.Controls.Add(this.DealerCard7);
             this.Controls.Add(this.DealerCard6);
+            this.Controls.Add(this.NameInput);
+            this.Controls.Add(this.LatestWinnerShow);
             this.Controls.Add(this.DealerCard5);
             this.Controls.Add(this.PlayerCard7);
             this.Controls.Add(this.PlayerCard6);
