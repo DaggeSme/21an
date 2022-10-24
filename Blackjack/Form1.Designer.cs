@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.PlayerCard1 = new System.Windows.Forms.PictureBox();
             this.PlayerCard2 = new System.Windows.Forms.PictureBox();
             this.PlayerCard3 = new System.Windows.Forms.PictureBox();
@@ -48,6 +49,11 @@
             this.DealerCard5 = new System.Windows.Forms.PictureBox();
             this.NameInput = new System.Windows.Forms.TextBox();
             this.LatestWinnerShow = new System.Windows.Forms.Label();
+            this.ButtonRules = new System.Windows.Forms.Button();
+            this.Rules = new System.Windows.Forms.Label();
+            this.Exit = new System.Windows.Forms.Button();
+            this.Buttondifficulty = new System.Windows.Forms.Button();
+            this.PlayerPoints = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard3)).BeginInit();
@@ -112,7 +118,7 @@
             this.Start.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Start.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Start.ForeColor = System.Drawing.Color.Transparent;
-            this.Start.Location = new System.Drawing.Point(217, 101);
+            this.Start.Location = new System.Drawing.Point(200, 148);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(147, 49);
             this.Start.TabIndex = 4;
@@ -288,11 +294,104 @@
             this.LatestWinnerShow.BackColor = System.Drawing.Color.Transparent;
             this.LatestWinnerShow.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.LatestWinnerShow.ForeColor = System.Drawing.Color.Transparent;
-            this.LatestWinnerShow.Location = new System.Drawing.Point(217, 26);
+            this.LatestWinnerShow.Location = new System.Drawing.Point(205, 51);
             this.LatestWinnerShow.Name = "LatestWinnerShow";
             this.LatestWinnerShow.Size = new System.Drawing.Size(417, 39);
             this.LatestWinnerShow.TabIndex = 20;
             this.LatestWinnerShow.Text = "Ingen har vunnit än!";
+            this.LatestWinnerShow.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ButtonRules
+            // 
+            this.ButtonRules.AutoSize = true;
+            this.ButtonRules.BackColor = System.Drawing.Color.Transparent;
+            this.ButtonRules.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ButtonRules.CausesValidation = false;
+            this.ButtonRules.FlatAppearance.BorderSize = 0;
+            this.ButtonRules.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ButtonRules.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ButtonRules.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonRules.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ButtonRules.ForeColor = System.Drawing.Color.Transparent;
+            this.ButtonRules.Location = new System.Drawing.Point(200, 203);
+            this.ButtonRules.Name = "ButtonRules";
+            this.ButtonRules.Size = new System.Drawing.Size(147, 49);
+            this.ButtonRules.TabIndex = 21;
+            this.ButtonRules.TabStop = false;
+            this.ButtonRules.Text = "Regler";
+            this.ButtonRules.UseVisualStyleBackColor = false;
+            this.ButtonRules.Click += new System.EventHandler(this.ButtonRules_Click);
+            // 
+            // Rules
+            // 
+            this.Rules.AutoSize = true;
+            this.Rules.BackColor = System.Drawing.Color.Transparent;
+            this.Rules.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Rules.ForeColor = System.Drawing.Color.Transparent;
+            this.Rules.Location = new System.Drawing.Point(12, 255);
+            this.Rules.Name = "Rules";
+            this.Rules.Size = new System.Drawing.Size(1497, 234);
+            this.Rules.TabIndex = 22;
+            this.Rules.Text = resources.GetString("Rules.Text");
+            this.Rules.Visible = false;
+            this.Rules.Click += new System.EventHandler(this.Rules_Click);
+            // 
+            // Exit
+            // 
+            this.Exit.AutoSize = true;
+            this.Exit.BackColor = System.Drawing.Color.Transparent;
+            this.Exit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Exit.CausesValidation = false;
+            this.Exit.FlatAppearance.BorderSize = 0;
+            this.Exit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Exit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Exit.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Exit.ForeColor = System.Drawing.Color.Transparent;
+            this.Exit.Location = new System.Drawing.Point(1505, 800);
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(167, 49);
+            this.Exit.TabIndex = 23;
+            this.Exit.TabStop = false;
+            this.Exit.Text = "Avsluta";
+            this.Exit.UseVisualStyleBackColor = false;
+            this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            // 
+            // Buttondifficulty
+            // 
+            this.Buttondifficulty.AutoSize = true;
+            this.Buttondifficulty.BackColor = System.Drawing.Color.Transparent;
+            this.Buttondifficulty.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Buttondifficulty.CausesValidation = false;
+            this.Buttondifficulty.FlatAppearance.BorderSize = 0;
+            this.Buttondifficulty.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Buttondifficulty.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Buttondifficulty.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Buttondifficulty.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Buttondifficulty.ForeColor = System.Drawing.Color.Transparent;
+            this.Buttondifficulty.Location = new System.Drawing.Point(200, 93);
+            this.Buttondifficulty.Name = "Buttondifficulty";
+            this.Buttondifficulty.Size = new System.Drawing.Size(487, 49);
+            this.Buttondifficulty.TabIndex = 24;
+            this.Buttondifficulty.TabStop = false;
+            this.Buttondifficulty.Text = "Svårighets grad: normal";
+            this.Buttondifficulty.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Buttondifficulty.UseVisualStyleBackColor = false;
+            this.Buttondifficulty.Click += new System.EventHandler(this.Buttondifficulty_Click);
+            // 
+            // PlayerPoints
+            // 
+            this.PlayerPoints.AutoSize = true;
+            this.PlayerPoints.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerPoints.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.PlayerPoints.ForeColor = System.Drawing.Color.Transparent;
+            this.PlayerPoints.Location = new System.Drawing.Point(477, 580);
+            this.PlayerPoints.Name = "PlayerPoints";
+            this.PlayerPoints.Size = new System.Drawing.Size(157, 39);
+            this.PlayerPoints.TabIndex = 25;
+            this.PlayerPoints.Text = "Poäng: ";
+            this.PlayerPoints.Visible = false;
+            this.PlayerPoints.Click += new System.EventHandler(this.PlayerPoints_Click);
             // 
             // Form1
             // 
@@ -300,6 +399,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Blackjack.Properties.Resource1.background;
             this.ClientSize = new System.Drawing.Size(1684, 861);
+            this.Controls.Add(this.PlayerPoints);
+            this.Controls.Add(this.Buttondifficulty);
+            this.Controls.Add(this.Exit);
+            this.Controls.Add(this.Rules);
+            this.Controls.Add(this.ButtonRules);
             this.Controls.Add(this.DealerCard7);
             this.Controls.Add(this.DealerCard6);
             this.Controls.Add(this.NameInput);
@@ -363,5 +467,10 @@
         private PictureBox DealerCard5;
         private TextBox NameInput;
         private Label LatestWinnerShow;
+        private Button ButtonRules;
+        private Label Rules;
+        private Button Exit;
+        private Button Buttondifficulty;
+        private Label PlayerPoints;
     }
 }

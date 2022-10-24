@@ -57,4 +57,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Rules.Text" xml:space="preserve">
+    <value>Först till 21 vinner
+först över 21 förlorar
+Datorn slutar dra när den har 17 poäng
+Blir det lika vinner datorn
+S'et är värt 11 om summan av alla kort inte är över 21 annars är det vär 1
+Kungen, Drotting och knäcket är värda 10
+</value>
+  </data>
 </root>

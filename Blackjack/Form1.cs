@@ -2,10 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
 using System.Media;
-using System.Reflection.Emit;
 using System.Resources;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blackjack
 {
@@ -17,6 +14,7 @@ namespace Blackjack
         int DealerDrawnCards = 3;
         int PlayerValue = 15;
         int DealerValue = 0;
+        int Difficulty = 2;
         string DealerCard2Hidden = "";
         List<Card> Deck = new List<Card>();
         Random rng = new Random();
@@ -94,42 +92,125 @@ namespace Blackjack
             DealerCard6.Invoke(new Action(() => DealerCard6.Visible = false));
             DealerCard7.Invoke(new Action(() => DealerCard7.Visible = false));
             NameInput.Invoke(new Action(() => NameInput.Visible = false));
+            Rules.Invoke(new Action(() => Rules.Visible = false));
+            PlayerPoints.Invoke(new Action(() => PlayerPoints.Visible = false));
         }
-        public void PlayerDrawCard(PictureBox Card)
+        public void PlayerDrawCard(PictureBox Card) 
         {
-            //Draw a random card from the deck to the player
-            Drawing_Cards.Play();
-            Thread.Sleep(600);
-            Card.Invoke(new Action(() => Card.Visible = true));
-            Rand = rng.Next(0, rng.Next(0, Deck.Count));
-            if (Deck[Rand].Value == 11 && PlayerValue > 10)
+            //Draw a random card from the deck to the player dependig on the difficulty 1-3
+            if (Difficulty == 1 && PlayerValue >= 15)
             {
-                PlayerValue += 1;
+                Deck.Clear();
+                Shuffle();
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                Rand = rng.Next(2, 5);
+                if (Rand == 11 && PlayerValue > 10)
+                {
+                    PlayerValue += 1;
+                }
+                else
+                {
+                    PlayerValue += Rand;
+                }
+                Card.Invoke(new Action(() => Card.Visible = true));
+                Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck.Find(x => x.Value == Rand).Name) as Image));
+                PlayerPoints.Invoke(new Action(() => PlayerPoints.Text = "Poäng: " + PlayerValue.ToString()));
+            }
+            else if (Difficulty == 3 && PlayerValue >= 15)
+            {
+                Deck.Clear();
+                Shuffle();
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                Rand = rng.Next(3, 10);
+                if (Rand == 11 && PlayerValue > 10)
+                {
+                    PlayerValue += 1;
+                }
+                else
+                {
+                    PlayerValue += Rand;
+                }
+                Card.Invoke(new Action(() => Card.Visible = true));
+                Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck.Find(x => x.Value == Rand).Name) as Image));
+                PlayerPoints.Invoke(new Action(() => PlayerPoints.Text = "Poäng: " + PlayerValue.ToString()));
             }
             else
             {
-                PlayerValue += Deck[Rand].Value;
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                Card.Invoke(new Action(() => Card.Visible = true));
+                Rand = rng.Next(0, rng.Next(0, Deck.Count));
+                if (Deck[Rand].Value == 11 && PlayerValue > 10)
+                {
+                    PlayerValue += 1;
+                }
+                else
+                {
+                    PlayerValue += Deck[Rand].Value;
+                }
+                Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
+                Deck.Remove(Deck[Rand]);
+                PlayerPoints.Invoke(new Action(() => PlayerPoints.Text = "Poäng: " + PlayerValue.ToString()));
             }
-            Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
-            Deck.Remove(Deck[Rand]);
         }
         public void DealerDrawCard(PictureBox Card)
         {
-            //Draw a random card from the deck to the player
-            Drawing_Cards.Play();
-            Thread.Sleep(600);
-            Card.Invoke(new Action(() => Card.Visible = true));
-            Rand = rng.Next(0, rng.Next(0, Deck.Count));
-            if (Deck[Rand].Value == 11 && DealerValue > 10)
+            //Draw a random card from the deck to the player dependig on the difficulty 1-3
+            if (Difficulty == 1 && DealerValue >= 15)
             {
-                DealerValue += 1;
+                Deck.Clear();
+                Shuffle();
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                Rand = rng.Next(3, 10);
+                if (Rand == 11 && DealerValue > 10)
+                {
+                    DealerValue += 1;
+                }
+                else
+                {
+                    DealerValue += Rand;
+                }
+                Card.Invoke(new Action(() => Card.Visible = true));
+                Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck.Find(x => x.Value == Rand).Name) as Image));
+            }
+            else if (Difficulty == 3 && DealerValue >= 15)
+            {
+                Deck.Clear();
+                Shuffle();
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                Rand = rng.Next(2, 5);
+                if (Rand == 11 && DealerValue > 10)
+                {
+                    DealerValue += 1;
+                }
+                else
+                {
+                    DealerValue += Rand;
+                }
+                Card.Invoke(new Action(() => Card.Visible = true));
+                Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck.Find(x => x.Value == Rand).Name) as Image));
             }
             else
             {
-                DealerValue += Deck[Rand].Value;
+                Drawing_Cards.Play();
+                Thread.Sleep(600);
+                Card.Invoke(new Action(() => Card.Visible = true));
+                Rand = rng.Next(0, rng.Next(0, Deck.Count));
+                if (Deck[Rand].Value == 11 && DealerValue > 10)
+                {
+                    DealerValue += 1;
+                }
+                else
+                {
+                    DealerValue += Deck[Rand].Value;
+                }
+                Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
+                Deck.Remove(Deck[Rand]);
             }
-            Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
-            Deck.Remove(Deck[Rand]);
         }
         private void Start_Click(object sender, EventArgs e)
         {
@@ -138,8 +219,10 @@ namespace Blackjack
                 Deck.Clear();
                 Shuffle();
             }
-            Debug.WriteLine(Deck.Count);
             Start.Visible = false;
+            ButtonRules.Visible = false;
+            Buttondifficulty.Enabled = false;
+            
             //use task to be able to have windows controll while drawing cards
             //Draw 2 cards for the player and two for the dealer and show them
             Task.Run(() =>
@@ -152,6 +235,7 @@ namespace Blackjack
                 Clear();
                 //Draw a random card from the deck to the player
                 PlayerDrawCard(PlayerCard1);
+                PlayerPoints.Invoke(new Action(() => PlayerPoints.Visible = true));
                 //Draw a random card from the deck to the dealer
                 DealerDrawCard(DealerCard1);
                 //Draw a random card from the deck to the player
@@ -170,19 +254,22 @@ namespace Blackjack
                 {
                     DealerValue += Deck[Rand].Value;
                 }
-                Debug.WriteLine("Dealer has: " + DealerValue);
                 DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject("back") as Image));
                 Deck.Remove(Deck[Rand]);
 
                 //Check if the player has blackjack
                 if (PlayerValue == 21)
                 {
+                    DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject(DealerCard2Hidden) as Image));
                     PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = false));
                     PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du vann!"));
                     Start.Invoke(new Action(() => Start.Visible = true));
+                    ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     NameInput.Invoke(new Action(() => NameInput.Visible = true));
+                    Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
+                    LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!"));
                 }
                 //Check to see if the player can continue is so show buttons
                 if (PlayerValue < 21)
@@ -231,7 +318,7 @@ namespace Blackjack
                     PlayerStand.Invoke(new Action(() => PlayerStand.Visible = true));
                 }
                 //find all winners and losers and write it out
-                if (PlayerValue > 21)
+                if (PlayerValue > 21 || (PlayerValue == 21 && PlayerValue == DealerValue))
                 {
                     PlayerDraw.Invoke(new Action(() => PlayerDraw.Visible = false));
                     PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
@@ -239,7 +326,9 @@ namespace Blackjack
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du förlorade!"));
                     LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = "Datorn var den senaste vinnare!"));
+                    ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     Start.Invoke(new Action(() => Start.Visible = true));
+                    Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
                 }
                 else if (DealerValue > 21 || PlayerValue == 21)
                 {
@@ -248,8 +337,11 @@ namespace Blackjack
                     DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject(DealerCard2Hidden) as Image));
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du vann!"));
+                    ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     Start.Invoke(new Action(() => Start.Visible = true));
                     NameInput.Invoke(new Action(() => NameInput.Visible = true));
+                    Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
+                    LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!"));
                 }
             });
         }
@@ -261,8 +353,7 @@ namespace Blackjack
                 PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
                 //Show the dealers hidden card
                 DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject(DealerCard2Hidden) as Image));
-                Debug.WriteLine("Dealer has: " + DealerValue);
-                while (DealerValue < 19) //&& DealerValue < PlayerValue
+                while (DealerValue < 17) //&& DealerValue < PlayerValue
                 {
                     switch (DealerDrawnCards)
                     {
@@ -301,7 +392,9 @@ namespace Blackjack
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du förlorade!"));
                     LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = "Datorn var den senaste vinnare!"));
+                    ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     Start.Invoke(new Action(() => Start.Visible = true));
+                    Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
                 }
                 else if (DealerValue > 21 || PlayerValue == 21 || (DealerValue < PlayerValue && PlayerValue < 21))
                 {
@@ -310,14 +403,70 @@ namespace Blackjack
                     Message.Invoke(new Action(() => Message.Visible = true));
                     Message.Invoke(new Action(() => Message.Text = "Du vann!"));
                     Start.Invoke(new Action(() => Start.Visible = true));
+                    ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     NameInput.Invoke(new Action(() => NameInput.Visible = true));
+                    Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
+                    LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!"));
                 }
             });
         }
-
         private void Name_TextChanged(object sender, EventArgs e)
         {
             LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!";
+        }
+        private void ButtonRules_Click(object sender, EventArgs e)
+        {
+            if (Rules.Visible == false)
+            {
+                Rules.Visible = true;
+            }
+            else
+            {
+                Rules.Visible = false;
+            }
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Buttondifficulty_Click(object sender, EventArgs e)
+        {
+            if (Difficulty == 1)
+            {
+                Difficulty = 2;
+            }
+            else if (Difficulty == 2)
+            {
+                Difficulty = 3;
+            }
+            else if (Difficulty == 3)
+            {
+                Difficulty = 1;
+            }
+            switch (Difficulty)
+            {
+                case 1:
+                    Buttondifficulty.Text = "Svårighets grad: lätt";
+                    break;
+                case 2:
+                    Buttondifficulty.Text = "Svårighets grad: normal";
+                    break;
+                case 3:
+                    Buttondifficulty.Text = "Svårighets grad: svår";
+                    break;
+            }
+        }
+
+        private void Rules_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlayerPoints_Click(object sender, EventArgs e)
+        {
+
         }
     }
     public class Card
