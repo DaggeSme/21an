@@ -54,6 +54,9 @@
             this.Exit = new System.Windows.Forms.Button();
             this.Buttondifficulty = new System.Windows.Forms.Button();
             this.PlayerPoints = new System.Windows.Forms.Label();
+            this.PlayerWinsDisplay = new System.Windows.Forms.Label();
+            this.DealerWinsDisplay = new System.Windows.Forms.Label();
+            this.DealerPoints = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCard3)).BeginInit();
@@ -393,12 +396,54 @@
             this.PlayerPoints.Visible = false;
             this.PlayerPoints.Click += new System.EventHandler(this.PlayerPoints_Click);
             // 
+            // PlayerWinsDisplay
+            // 
+            this.PlayerWinsDisplay.AutoSize = true;
+            this.PlayerWinsDisplay.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerWinsDisplay.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.PlayerWinsDisplay.ForeColor = System.Drawing.Color.Transparent;
+            this.PlayerWinsDisplay.Location = new System.Drawing.Point(12, 559);
+            this.PlayerWinsDisplay.Name = "PlayerWinsDisplay";
+            this.PlayerWinsDisplay.Size = new System.Drawing.Size(357, 39);
+            this.PlayerWinsDisplay.TabIndex = 26;
+            this.PlayerWinsDisplay.Text = "Spelar vinster: 0";
+            this.PlayerWinsDisplay.Click += new System.EventHandler(this.PlayerWinsDisplay_Click);
+            // 
+            // DealerWinsDisplay
+            // 
+            this.DealerWinsDisplay.AutoSize = true;
+            this.DealerWinsDisplay.BackColor = System.Drawing.Color.Transparent;
+            this.DealerWinsDisplay.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.DealerWinsDisplay.ForeColor = System.Drawing.Color.Transparent;
+            this.DealerWinsDisplay.Location = new System.Drawing.Point(12, 598);
+            this.DealerWinsDisplay.Name = "DealerWinsDisplay";
+            this.DealerWinsDisplay.Size = new System.Drawing.Size(337, 39);
+            this.DealerWinsDisplay.TabIndex = 27;
+            this.DealerWinsDisplay.Text = "Dator vinster: 0";
+            // 
+            // DealerPoints
+            // 
+            this.DealerPoints.AutoSize = true;
+            this.DealerPoints.BackColor = System.Drawing.Color.Transparent;
+            this.DealerPoints.Font = new System.Drawing.Font("Unispace", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.DealerPoints.ForeColor = System.Drawing.Color.Transparent;
+            this.DealerPoints.Location = new System.Drawing.Point(477, 173);
+            this.DealerPoints.Name = "DealerPoints";
+            this.DealerPoints.Size = new System.Drawing.Size(157, 39);
+            this.DealerPoints.TabIndex = 28;
+            this.DealerPoints.Text = "Poäng: ";
+            this.DealerPoints.Visible = false;
+            this.DealerPoints.Click += new System.EventHandler(this.DealerPoints_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Blackjack.Properties.Resource1.background;
             this.ClientSize = new System.Drawing.Size(1684, 861);
+            this.Controls.Add(this.DealerPoints);
+            this.Controls.Add(this.DealerWinsDisplay);
+            this.Controls.Add(this.PlayerWinsDisplay);
             this.Controls.Add(this.PlayerPoints);
             this.Controls.Add(this.Buttondifficulty);
             this.Controls.Add(this.Exit);
@@ -472,5 +517,8 @@
         private Button Exit;
         private Button Buttondifficulty;
         private Label PlayerPoints;
+        private Label PlayerWinsDisplay;
+        private Label DealerWinsDisplay;
+        private Label DealerPoints;
     }
 }

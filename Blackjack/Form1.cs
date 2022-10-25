@@ -15,6 +15,8 @@ namespace Blackjack
         int PlayerValue = 15;
         int DealerValue = 0;
         int Difficulty = 2;
+        int PlayerWins = 0;
+        int DealerWins = 0;
         string DealerCard2Hidden = "";
         List<Card> Deck = new List<Card>();
         Random rng = new Random();
@@ -94,6 +96,7 @@ namespace Blackjack
             NameInput.Invoke(new Action(() => NameInput.Visible = false));
             Rules.Invoke(new Action(() => Rules.Visible = false));
             PlayerPoints.Invoke(new Action(() => PlayerPoints.Visible = false));
+            DealerPoints.Invoke(new Action(() => DealerPoints.Visible = false));
         }
         public void PlayerDrawCard(PictureBox Card) 
         {
@@ -175,6 +178,7 @@ namespace Blackjack
                 }
                 Card.Invoke(new Action(() => Card.Visible = true));
                 Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck.Find(x => x.Value == Rand).Name) as Image));
+                DealerPoints.Invoke(new Action(() => DealerPoints.Text = "Poäng: " + DealerValue.ToString()));
             }
             else if (Difficulty == 3 && DealerValue >= 15)
             {
@@ -193,6 +197,7 @@ namespace Blackjack
                 }
                 Card.Invoke(new Action(() => Card.Visible = true));
                 Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck.Find(x => x.Value == Rand).Name) as Image));
+                DealerPoints.Invoke(new Action(() => DealerPoints.Text = "Poäng: " + DealerValue.ToString()));
             }
             else
             {
@@ -210,6 +215,7 @@ namespace Blackjack
                 }
                 Card.Invoke(new Action(() => Card.Image = Properties.Resource1.ResourceManager.GetObject(Deck[Rand].Name) as Image));
                 Deck.Remove(Deck[Rand]);
+                DealerPoints.Invoke(new Action(() => DealerPoints.Text = "Poäng: " + DealerValue.ToString()));
             }
         }
         private void Start_Click(object sender, EventArgs e)
@@ -236,6 +242,7 @@ namespace Blackjack
                 //Draw a random card from the deck to the player
                 PlayerDrawCard(PlayerCard1);
                 PlayerPoints.Invoke(new Action(() => PlayerPoints.Visible = true));
+                DealerPoints.Invoke(new Action(() => DealerPoints.Visible = true));
                 //Draw a random card from the deck to the dealer
                 DealerDrawCard(DealerCard1);
                 //Draw a random card from the deck to the player
@@ -270,6 +277,8 @@ namespace Blackjack
                     NameInput.Invoke(new Action(() => NameInput.Visible = true));
                     Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
                     LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!"));
+                    PlayerWins++;
+                    PlayerWinsDisplay.Invoke(new Action(() => PlayerWinsDisplay.Text = "Spelar vinster: " + PlayerWins.ToString()));
                 }
                 //Check to see if the player can continue is so show buttons
                 if (PlayerValue < 21)
@@ -329,6 +338,8 @@ namespace Blackjack
                     ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     Start.Invoke(new Action(() => Start.Visible = true));
                     Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
+                    DealerWins++;
+                    DealerWinsDisplay.Invoke(new Action(() => DealerWinsDisplay.Text = "Dator vinster: " + DealerWins.ToString()));
                 }
                 else if (DealerValue > 21 || PlayerValue == 21)
                 {
@@ -342,6 +353,8 @@ namespace Blackjack
                     NameInput.Invoke(new Action(() => NameInput.Visible = true));
                     Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
                     LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!"));
+                    PlayerWins++;
+                    PlayerWinsDisplay.Invoke(new Action(() => PlayerWinsDisplay.Text = "Spelar vinster: " + PlayerWins.ToString()));
                 }
             });
         }
@@ -353,6 +366,7 @@ namespace Blackjack
                 PlayerStand.Invoke(new Action(() => PlayerStand.Visible = false));
                 //Show the dealers hidden card
                 DealerCard2.Invoke(new Action(() => DealerCard2.Image = Properties.Resource1.ResourceManager.GetObject(DealerCard2Hidden) as Image));
+                DealerPoints.Invoke(new Action(() => DealerPoints.Text = "Poäng: " + DealerValue.ToString()));
                 while (DealerValue < 17) //&& DealerValue < PlayerValue
                 {
                     switch (DealerDrawnCards)
@@ -395,6 +409,8 @@ namespace Blackjack
                     ButtonRules.Invoke(new Action(() => ButtonRules.Visible = true));
                     Start.Invoke(new Action(() => Start.Visible = true));
                     Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
+                    DealerWins++;
+                    DealerWinsDisplay.Invoke(new Action(() => DealerWinsDisplay.Text = "Dator vinster: " + DealerWins.ToString()));
                 }
                 else if (DealerValue > 21 || PlayerValue == 21 || (DealerValue < PlayerValue && PlayerValue < 21))
                 {
@@ -407,6 +423,8 @@ namespace Blackjack
                     NameInput.Invoke(new Action(() => NameInput.Visible = true));
                     Buttondifficulty.Invoke(new Action(() => Buttondifficulty.Enabled = true));
                     LatestWinnerShow.Invoke(new Action(() => LatestWinnerShow.Text = NameInput.Text + " var den senaste vinnare!"));
+                    PlayerWins++;
+                    PlayerWinsDisplay.Invoke(new Action(() => PlayerWinsDisplay.Text = "Spelar vinster: " + PlayerWins.ToString()));
                 }
             });
         }
@@ -465,6 +483,16 @@ namespace Blackjack
         }
 
         private void PlayerPoints_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlayerWinsDisplay_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DealerPoints_Click(object sender, EventArgs e)
         {
 
         }
